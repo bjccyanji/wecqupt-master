@@ -1,0 +1,55 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/news/news",
+    "pages/news/detail",
+    "pages/more/more",
+    "pages/more/about",
+    "pages/core/kb/kb",
+    "pages/core/cj/cj",
+    "pages/core/ks/ks",
+    "pages/core/kjs/kjs",
+    "pages/charts/charts",
+    "pages/charts/area/area",
+    "pages/charts/column/column",
+    "pages/charts/line/line",
+    "pages/charts/pie/pie",
+    "pages/charts/ring/ring",
+    "pages/index2/index2",
+    "pages/core/bx/bx"
+  ],
+  "window":{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#9edeca",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "卷包車間-包裝機",
+    "backgroundColor": "#9edeca", 
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#7f848a",
+    "selectedColor": "#09ba07",
+    "backgroundColor": "#f7f6fb",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "images/index/index.png",
+      "selectedIconPath": "images/index/index@active.png"
+    }, 
+{
+      "pagePath": "pages/core/bx/bx",
+      "iconPath":"images/index/more2.png",
+      "selectedIconPath":"images/index/more2@active.png",
+      "text": "故障列表"
+    },
+
+
+    {
+      "pagePath": "pages/index2/index2",
+      "text": "更多",
+      "iconPath": "images/index/more2.png",
+      "selectedIconPath": "images/index/more2@active.png"
+    }]
+  }
+}

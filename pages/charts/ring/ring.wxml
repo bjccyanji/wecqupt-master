@@ -1,0 +1,7 @@
+<view class="container">
+    <canvas canvas-id="ringCanvas" class="canvas"  style="height:200px" bindtouchstart="touchHandler"></canvas>
+    <!--<view>调用stopAnimation终止动画，并监听渲染完成事件</view>-->
+
+    <button type="primary" bindtap="updateData" style="margin-top:10rpx">更新title</button>
+</view>
+

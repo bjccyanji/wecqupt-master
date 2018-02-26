@@ -1,0 +1,179 @@
+
+<!--index.wxml-->
+<view class="container">
+
+  <!--功能导航-->
+  <view class="main-core">
+    <block wx:for="{{core}}">
+      <navigator class="main-core-item" url="/pages/core/{{item.id}}/{{item.id}}">
+        <image class="core-item-icon" src="/images/core/{{item.id}}.png" />
+        <text class="core-item-name">{{item.name}}</text>
+      </navigator>
+    </block>
+  </view>
+
+  <!--卡片列表-->
+  <view class="main-card">
+
+    <!--今日课表-->
+    <view class="main-card-item" id="kb" wx:if="{{card.kb.show}}">
+      <navigator url="/pages/core/kb/kb">
+        <view class="card-item-hd">
+          <image class="card-item-icon" src="/images/core/kb.png" />
+          <text class="card-item-name">实时车间</text>
+          <view class="card-item-more">
+            <image class="card-item-open" src="/images/index/open.png" />
+          </view>
+        </view>
+        <view class="card-item-hd">
+          <text class="kb-item-where">故障车：</text>
+          <view class="card-item-more">
+          </view>
+        </view>
+      </navigator>
+      <view class="card-item-bd">
+        <view class="kb-item" wx:for="{{card.kb.data.list}}" wx:for-index="i">
+          <view wx:if="{{i == 0}}">
+            <image class="core-item-icon" src="/images/index/1.png" />
+          </view>
+          <view wx:if="{{i == 1}}">
+            <image class="core-item-icon" src="/images/index/2.png" />
+          </view>
+          <view class="kb-item-left">
+            <text class="kb-item-what">{{item.what}}</text>
+          </view>
+          <view class="kb-item-left">
+            <text class="kb-item-when">{{item.when}}</text>
+          </view>
+          <text class="kb-item-where">{{item.where}}</text>
+        </view>
+      </view>
+      <view catchtap="touchlist">
+        <view class="kb-open">
+          <text>查看完整故障列表</text>
+        </view>
+      </view>
+    </view>
+
+    <!--一卡通-->
+    <view class="main-card-item" id="ykt" wx:if="{{card.ykt.show}}">
+      <navigator url="/pages/core/ykt/ykt">
+        <view class="card-item-hd">
+          <image class="card-item-icon" src="/images/core/cj.png" />
+          <text class="card-item-name">生产数据</text>
+          <view class="card-item-more">
+            <image class="card-item-open" src="/images/index/open.png" />
+          </view>
+        </view>
+      </navigator>
+      <view class="card-item-bd">
+        <view class="container">
+          <canvas canvas-id="ringCanvas" class="canvas" style="height:200px" bindtouchstart="touchHandler"></canvas>
+
+          <!--<view>调用stopAnimation终止动画，并监听渲染完成事件</view>-->
+          <button type="primary" bindtap="updateData" style="margin-top:10rpx">更新数据</button>
+          <text class="card-info-name">      已生产：</text>
+          <view class="ykt-balance">
+            <text class="ykt-balance-value">{{card.ykt.data.balance}}</text>
+            <text class="ykt-balance-text">包</text>
+          </view>
+          <text class="card-info-name">      剔除量：</text>
+          <view class="ykt-cost">
+            <block wx:for="{{card.ykt.data.cost.value}}">
+              <text class="card-info-name">  {{item}}  </text>
+              <text class="ykt-cost-text" wx:if="{{ index != card.ykt.data.cost.value.length - 1}}">+</text>
+            </block>
+            <text class="ykt-cost-text">=</text>
+            <text class="ykt-cost-total">{{card.ykt.data.cost.total}}</text>
+            <text class="ykt-cost-text">包</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--借阅信息-->
+    <view class="main-card-item" id="jy" wx:if="{{card.jy.show}}">
+      <navigator url="/pages/core/jy/jy">
+        <view class="card-item-hd">
+          <image class="card-item-icon" src="/images/core/ks.png" />
+          <text class="card-item-name">备件信息</text>
+          <view class="card-item-more">
+            <image class="card-item-open" src="/images/index/open.png" />
+          </view>
+        </view>
+      </navigator>
+      <view class="card-item-bd">
+        <view class="card-info-hd">
+          <view class="card-info-left">
+            <text class="card-info-name">包装机备件列表</text>
+            <text class="card-info-number">2013211664</text>
+          </view>
+          <view class="card-info-right">
+            <view>库存：36</view>
+            <view>已领用：2</view>
+          </view>
+        </view>
+        <view class="jy-list">
+          <view class="jy-item" wx:for="{{card.jy.data.list}}">
+            <view class="jy-book">
+              <view class="jy-pickup-time">
+                <text class="jy-pickup-time-value">{{item.pickup_time}}</text>
+                <text class="jy-pickup-time-text">入</text>
+              </view>
+              <text class="jy-book-name">{{item.book_name}}</text>
+            </view>
+            <view class="jy-timing">
+              <text class="jy-timing-text">使用</text>
+              <text class="jy-timing-value">{{item.timing}}</text>
+              <text class="jy-timing-text">个</text>
+            </view>
+            <view class="jy-return-time">
+              <text class="jy-return-time-value">{{item.return_time}}</text>
+              <text class="jy-return-time-text">出</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!--水电费-->
+    <view class="main-card-item" id="sdf" wx:if="{{card.sdf.show}}">
+      <navigator url="/pages/core/sdf/sdf">
+        <view class="card-item-hd">
+          <image class="card-item-icon" src="/images/core/kjs.png" />
+          <text class="card-item-name">材料消耗</text>
+          <view class="card-item-more">
+            <image class="card-item-open" src="/images/index/open.png" />
+          </view>
+        </view>
+      </navigator>
+      <view class="card-item-bd">
+        <view class="card-info-hd">
+          <view class="card-info-left">
+            <text class="card-info-name">小包透明纸</text>
+          </view>
+          <view class="card-info-right">
+            <view>截止时间：17-03-26</view>
+          </view>
+        </view>
+        <text class="sdf-hd">本班用量：</text>
+        <view class="sdf-bd">
+          <view class="sdf-key">
+            <text class="sdf-value">23</text>
+            <text class="sdf-text">卷</text>
+          </view>
+          <view class="sdf-key">
+            <text class="sdf-text">剩余</text>
+            <text class="sdf-value">66</text>
+            <text class="sdf-text">卷</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="main-ending">
+    <view class="main-ending-line"></view>
+    <text class="main-ending-text">我是一个看的见的结尾</text>
+    <view class="main-ending-line"></view>
+  </view>
+</view>
